@@ -4,8 +4,7 @@ export const ProfileCardContainer = styled.article`
   display: flex;
   gap: 3.2rem;
 
-  width: min(86.4rem, 100%);
-  margin: -8.8rem auto 0;
+  margin-top: -8.8rem;
   padding: 3.2rem 4rem;
 
   border-radius: 10px;
