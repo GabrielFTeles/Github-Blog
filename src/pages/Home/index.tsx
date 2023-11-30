@@ -1,3 +1,11 @@
+import { Header } from "../../components/Header";
+import { ProfileCard } from "./components/ProfileCard";
+
 export function Home() {
-  return <h1>HOME</h1>;
+  return (
+    <>
+      <Header />
+      <ProfileCard />
+    </>
+  );
 }

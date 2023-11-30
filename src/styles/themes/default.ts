@@ -3,7 +3,7 @@ export const defaultTheme = {
 
   "blue-300": "#3294F8",
 
-  "gray-100": "#EFEDF4",
+  "gray-100": "#E7EDF4",
   "gray-200": "#C4D4E3",
   "gray-300": "#AFC2D4",
   "gray-400": "#7B96B2",
