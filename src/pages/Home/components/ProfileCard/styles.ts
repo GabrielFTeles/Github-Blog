@@ -19,6 +19,10 @@ export const ProfileCardContainer = styled.article`
 `;
 
 export const UserInfo = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+
   > header {
     display: flex;
     justify-content: space-between;
@@ -55,10 +59,17 @@ export const UserInfo = styled.div`
   }
 
   > section {
-    color: ${({ theme }) => theme["gray-300"]};
-    line-height: 160%;
+    flex: 1;
 
-    margin-bottom: 2.4rem;
+    & p {
+      color: ${({ theme }) => theme["gray-300"]};
+      line-height: 160%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+    }
   }
 
   > footer {
