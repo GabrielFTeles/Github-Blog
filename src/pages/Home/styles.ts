@@ -30,9 +30,7 @@ export const SectionHeader = styled.div`
   }
 `;
 
-export const PublicationsCardsList = styled.ul`
-  list-style: none;
-
+export const PublicationsCardsList = styled.div`
   margin-top: 4.8rem;
 
   display: grid;

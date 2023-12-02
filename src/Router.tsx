@@ -8,8 +8,8 @@ export function Router() {
   return (
     <Routes>
       <Route path="/" element={<DefaultLayout />}>
-        <Route path="/:username" element={<Home />} />
-        <Route path="/Posts/:post_id" element={<Posts />} />
+        <Route path="users/:username" element={<Home />} />
+        <Route path="users/:username/posts/:post_id" element={<Posts />} />
       </Route>
     </Routes>
   );

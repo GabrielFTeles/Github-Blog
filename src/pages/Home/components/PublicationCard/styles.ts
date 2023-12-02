@@ -1,14 +1,16 @@
+import { Link } from "react-router-dom";
+
 import styled from "styled-components";
 
-export const PublicationCardContainer = styled.li`
+export const PublicationCardContainer = styled(Link)`
+  text-decoration: none;
+
   flex: 1;
   line-height: 160%;
-
   padding: 3.2rem;
 
   background: ${({ theme }) => theme["gray-700"]};
   border-radius: 10px;
-
   border: 2px solid transparent;
 
   transition: border-color 0.3s;
