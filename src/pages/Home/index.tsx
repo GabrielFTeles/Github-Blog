@@ -33,9 +33,9 @@ export function Home() {
         `/users/${username}/repos?sort=created&order=asc`
       );
 
-      const reposWithDescription = data.filter((repo) => repo.description);
+      const reposWithDescription = data.filter((repo: any) => repo.description);
 
-      const repos = reposWithDescription.map((repo) => {
+      const repos = reposWithDescription.map((repo: any) => {
         const {
           name,
           description,
