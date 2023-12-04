@@ -19,7 +19,7 @@ export interface RepoDataType {
 export function Posts() {
   const { username, repo_name } = useParams();
 
-  const [repoData, setRepoData] = useState({} as RepoDataType);
+  const [repoData, setRepoData] = useState<RepoDataType | null>(null);
 
   useEffect(() => {
     async function getRepositorieData() {
@@ -48,9 +48,7 @@ export function Posts() {
     getRepositorieData();
   }, [username, repo_name]);
 
-  const hasData = !!repoData.html_url;
-
-  if (!hasData) {
+  if (!repoData) {
     return <InfinityLoader />;
   }
 

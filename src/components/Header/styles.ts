@@ -1,12 +1,14 @@
 import styled from "styled-components";
 
+import leftHeaderLines from "../../assets/left-header-lines.svg";
+import rightHeaderLines from "../../assets/right-header-lines.svg";
+
 export const HeaderContainer = styled.header`
   width: 100%;
   padding: 6.4rem 0 13.4rem;
 
   background-color: ${({ theme }) => theme["gray-800"]};
-  background-image: url("../../../src/assets/left-header-lines.svg"),
-    url("../../../src/assets/right-header-lines.svg");
+  background-image: url(${leftHeaderLines}), url(${rightHeaderLines});
   background-position: left center, right center, center;
   background-repeat: no-repeat;
 
