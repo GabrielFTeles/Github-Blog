@@ -3,10 +3,10 @@ import { formatDistanceToNow } from "date-fns";
 
 import { PublicationCardContainer } from "./styles";
 
-import { userRepoType } from "../..";
+import { UserRepoType } from "../..";
 
 interface PublicationCardProps {
-  data: userRepoType;
+  data: UserRepoType;
 }
 
 export function PublicationCard({ data }: PublicationCardProps) {
@@ -17,7 +17,7 @@ export function PublicationCard({ data }: PublicationCardProps) {
   });
 
   return (
-    <PublicationCardContainer to={`/users/${data.login}/posts/${data.id}`}>
+    <PublicationCardContainer to={`/users/${data.login}/posts/${data.name}`}>
       <div>
         <h3>{repositorieName}</h3>
         <span>{distanceFromNow}</span>

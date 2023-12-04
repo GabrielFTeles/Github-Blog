@@ -12,9 +12,9 @@ import {
   PublicationsSection,
   SectionHeader,
 } from "./styles";
+import { InfinityLoader } from "../../components/InfinityLoader";
 
-export interface userRepoType {
-  id: number;
+export interface UserRepoType {
   name: string;
   description: string;
   html_url: string;
@@ -25,7 +25,7 @@ export interface userRepoType {
 export function Home() {
   const { username } = useParams();
 
-  const [userRepos, setUserRepos] = useState<userRepoType[]>([]);
+  const [userRepos, setUserRepos] = useState<UserRepoType[]>([]);
 
   useEffect(() => {
     async function getUserRepos() {
@@ -35,7 +35,6 @@ export function Home() {
 
       const repos = reposWithDescription.map((repo) => {
         const {
-          id,
           name,
           description,
           html_url,
@@ -44,7 +43,6 @@ export function Home() {
         } = repo;
 
         return {
-          id,
           login,
           name,
           description,
@@ -59,6 +57,12 @@ export function Home() {
     getUserRepos();
   }, [username]);
 
+  const hasUserData = userRepos.length > 0;
+
+  if (!hasUserData) {
+    return <InfinityLoader />;
+  }
+
   return (
     <HomeContainer>
       <ProfileCard />
@@ -66,7 +70,7 @@ export function Home() {
       <PublicationsSection>
         <SectionHeader>
           <h2>Publicações</h2>
-          <span>6 publicações</span>
+          <span>{userRepos.length} publicações</span>
         </SectionHeader>
 
         <SearchForm />
