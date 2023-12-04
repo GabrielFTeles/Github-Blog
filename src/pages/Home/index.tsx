@@ -29,7 +29,9 @@ export function Home() {
 
   useEffect(() => {
     async function getUserRepos() {
-      const { data } = await api.get(`/users/${username}/repos`);
+      const { data } = await api.get(
+        `/users/${username}/repos?sort=created&order=asc`
+      );
 
       const reposWithDescription = data.filter((repo) => repo.description);
 

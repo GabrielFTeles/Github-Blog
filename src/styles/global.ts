@@ -9,6 +9,7 @@ export const GlobalStyle = createGlobalStyle`
 
   :root {
     font-size: 62.5%;
+    scrollbar-gutter: stable;
   }
 
   body {
@@ -25,5 +26,21 @@ export const GlobalStyle = createGlobalStyle`
     font-size: 1.6rem;
     font-weight: 400;
     color: ${({ theme }) => theme["gray-100"]};
+  }
+
+  /* ===== Scrollbar CSS ===== */
+
+  /* Chrome, Edge, and Safari */
+  *::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background-color: ${({ theme }) => theme["blue-300"]};
+    border-radius: 15px;
   }
 `;
