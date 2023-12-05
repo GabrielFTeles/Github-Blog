@@ -1,8 +1,8 @@
 import { api } from "../../libs/axios";
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import debounce from "lodash.debounce";
 
-import { SearchForm } from "./components/SearchForm";
 import { ProfileCard } from "./components/ProfileCard";
 import { PublicationCard } from "./components/PublicationCard";
 
@@ -26,42 +26,59 @@ export function Home() {
   const { username } = useParams();
 
   const [userRepos, setUserRepos] = useState<UserRepoType[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [searchText, setSearchText] = useState("");
+
+  function handleSearch(event: ChangeEvent<HTMLInputElement>) {
+    const debounceSearch = debounce(
+      () => setSearchText(event.target.value),
+      1000
+    );
+
+    debounceSearch();
+  }
 
   useEffect(() => {
     async function getUserRepos() {
-      const { data } = await api.get(
-        `/users/${username}/repos?sort=created&order=asc`
-      );
+      try {
+        const { data } = await api.get(
+          `/search/repositories?q=${searchText}+user:${username}&sort=created&order=asc`
+        );
 
-      const reposWithDescription = data.filter((repo: any) => repo.description);
+        const reposWithDescription = data.items.filter(
+          (repo: any) => repo.description
+        );
 
-      const repos = reposWithDescription.map((repo: any) => {
-        const {
-          name,
-          description,
-          html_url,
-          created_at,
-          owner: { login },
-        } = repo;
+        const repos = reposWithDescription.map((repo: any) => {
+          const {
+            name,
+            description,
+            html_url,
+            created_at,
+            owner: { login },
+          } = repo;
 
-        return {
-          login,
-          name,
-          description,
-          html_url,
-          created_at,
-        };
-      });
+          return {
+            login,
+            name,
+            description,
+            html_url,
+            created_at,
+          };
+        });
 
-      setUserRepos(repos);
+        setUserRepos(repos);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setIsLoading(false);
+      }
     }
 
     getUserRepos();
-  }, [username]);
+  }, [username, searchText]);
 
-  const hasUserData = userRepos.length > 0;
-
-  if (!hasUserData) {
+  if (isLoading) {
     return <InfinityLoader />;
   }
 
@@ -75,7 +92,11 @@ export function Home() {
           <span>{userRepos.length} publicações</span>
         </SectionHeader>
 
-        <SearchForm />
+        <input
+          type="text"
+          placeholder="Buscar conteúdo"
+          onChange={handleSearch}
+        />
 
         <PublicationsCardsList>
           {userRepos.map((repo) => (
