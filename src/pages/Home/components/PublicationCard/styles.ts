@@ -3,6 +3,10 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export const PublicationCardContainer = styled(Link)`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
   text-decoration: none;
 
   flex: 1;
@@ -24,8 +28,6 @@ export const PublicationCardContainer = styled(Link)`
     justify-content: space-between;
     gap: 1.6rem;
 
-    margin-bottom: 2rem;
-
     & h3 {
       color: ${({ theme }) => theme["gray-100"]};
       font-size: 2rem;
@@ -40,6 +42,8 @@ export const PublicationCardContainer = styled(Link)`
   }
 
   & p {
+    flex: 1;
+
     color: ${({ theme }) => theme["gray-300"]};
     overflow: hidden;
     text-overflow: ellipsis;
@@ -47,4 +51,20 @@ export const PublicationCardContainer = styled(Link)`
     -webkit-line-clamp: 4;
     -webkit-box-orient: vertical;
   }
+`;
+
+export const LanguageTag = styled.span`
+  color: ${({ theme }) => theme["blue-300"]};
+  font-size: 1.2rem;
+  font-weight: 700;
+  line-height: 1;
+
+  width: fit-content;
+
+  display: block;
+
+  border-radius: 4px;
+
+  padding: 0.6rem;
+  background: ${({ theme }) => theme["gray-500"]};
 `;

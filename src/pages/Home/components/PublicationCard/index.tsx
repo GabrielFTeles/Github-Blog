@@ -1,7 +1,7 @@
 import ptBR from "date-fns/locale/pt-BR";
 import { formatDistanceToNow } from "date-fns";
 
-import { PublicationCardContainer } from "./styles";
+import { LanguageTag, PublicationCardContainer } from "./styles";
 
 import { UserRepoType } from "../..";
 
@@ -24,6 +24,13 @@ export function PublicationCard({ data }: PublicationCardProps) {
       </div>
 
       <p>{data.description}</p>
+
+      {data.language && (
+        <LanguageTag>
+          <span />
+          <p>{data.language}</p>
+        </LanguageTag>
+      )}
     </PublicationCardContainer>
   );
 }

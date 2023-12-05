@@ -17,6 +17,7 @@ export interface UserRepoType {
   name: string;
   description: string;
   html_url: string;
+  language: string;
   created_at: string;
   login: string;
 }
@@ -29,8 +30,10 @@ export function Home() {
   const [isLoading, setIsLoading] = useState(true);
 
   function handleSearch(event: ChangeEvent<HTMLInputElement>) {
-    const newFilteredRepos = userRepos.filter((repo) =>
-      repo.name.includes(event.target.value)
+    const newFilteredRepos = userRepos.filter(
+      (repo) =>
+        repo.name.includes(event.target.value) ||
+        repo.description.includes(event.target.value)
     );
 
     setFilteredRepos(newFilteredRepos);
@@ -50,6 +53,7 @@ export function Home() {
             name,
             description,
             html_url,
+            language,
             created_at,
             owner: { login },
           } = repo;
@@ -57,6 +61,7 @@ export function Home() {
           return {
             login,
             name,
+            language,
             description,
             html_url,
             created_at,
