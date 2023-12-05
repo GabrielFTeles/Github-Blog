@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const UsersContainer = styled.main`
   width: min(86.4rem, 100%);
+  padding-inline: 1.5rem;
   margin: 0 auto;
 `;
 
@@ -36,4 +37,8 @@ export const PublicationsCardsList = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 3.2rem;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
 `;

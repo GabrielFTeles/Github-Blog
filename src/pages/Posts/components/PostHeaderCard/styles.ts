@@ -49,6 +49,11 @@ export const CardFooter = styled.div`
   gap: 3.2rem;
 
   margin-top: 0.8rem;
+
+  @media (max-width: 550px) {
+    flex-direction: column;
+    gap: 1rem;
+  }
 `;
 
 export const FooterItem = styled.div`

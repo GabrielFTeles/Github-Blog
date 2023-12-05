@@ -12,9 +12,14 @@ export const ProfileCardContainer = styled.article`
   box-shadow: 0px 2px 28px 0px rgba(0, 0, 0, 0.2);
   background: ${({ theme }) => theme["gray-800"]};
 
-  & aside img {
+  & img {
     height: 14.8rem;
     border-radius: 8px;
+  }
+
+  @media (max-width: 550px) {
+    flex-direction: column;
+    align-items: center;
   }
 `;
 
@@ -69,6 +74,8 @@ export const UserInfo = styled.div`
       display: -webkit-box;
       -webkit-line-clamp: 3;
       -webkit-box-orient: vertical;
+
+      margin-bottom: 1rem;
     }
   }
 
@@ -76,6 +83,19 @@ export const UserInfo = styled.div`
     display: flex;
     align-items: center;
     gap: 2.4rem;
+  }
+
+  @media (max-width: 768px) {
+    > header {
+      flex-direction: column;
+    }
+
+    > footer {
+      align-items: flex-start;
+      justify-content: center;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
   }
 `;
 

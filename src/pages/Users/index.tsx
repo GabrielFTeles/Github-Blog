@@ -83,7 +83,7 @@ export function Users() {
     }
 
     getUserRepos();
-  }, [username]);
+  }, [navigation, username]);
 
   if (isLoading) {
     return <InfinityLoader />;
