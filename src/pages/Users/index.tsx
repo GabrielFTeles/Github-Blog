@@ -1,6 +1,6 @@
 import { api } from "../../libs/axios";
 import { ChangeEvent, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import { ProfileCard } from "./components/ProfileCard";
 import { PublicationCard } from "./components/PublicationCard";
@@ -25,6 +25,7 @@ export interface UserRepoType {
 
 export function Users() {
   const { username } = useParams();
+  const navigation = useNavigate();
 
   const [userRepos, setUserRepos] = useState<UserRepoType[]>([]);
   const [filteredRepos, setFilteredRepos] = useState<UserRepoType[]>([]);
@@ -75,6 +76,7 @@ export function Users() {
         setFilteredRepos(repos);
       } catch (error) {
         console.log(error);
+        navigation("/404");
       } finally {
         setIsLoading(false);
       }

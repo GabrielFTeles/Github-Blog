@@ -26,6 +26,11 @@ export function Home() {
           Pesquise o <span>Github</span>
         </h1>
 
+        <p>
+          Descubra, Explore, Crie - Transforme perfis do GitHub em blogs
+          incríveis!
+        </p>
+
         <Input
           type="text"
           placeholder="Busque o usuário do Github"

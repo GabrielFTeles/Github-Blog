@@ -1,5 +1,5 @@
 import { api } from "../../libs/axios";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 import { PostHeaderCard } from "./components/PostHeaderCard";
@@ -17,32 +17,38 @@ export interface RepoDataType {
 }
 
 export function Posts() {
+  const navigation = useNavigate();
   const { username, repo_name } = useParams();
 
   const [repoData, setRepoData] = useState<RepoDataType | null>(null);
 
   useEffect(() => {
     async function getRepositorieData() {
-      const { data } = await api.get(`/repos/${username}/${repo_name}`);
+      try {
+        const { data } = await api.get(`/repos/${username}/${repo_name}`);
 
-      const {
-        name,
-        html_url,
-        description,
-        stargazers_count,
-        created_at,
-      }: RepoDataType = data;
+        const {
+          name,
+          html_url,
+          description,
+          stargazers_count,
+          created_at,
+        }: RepoDataType = data;
 
-      const githubUser = data.owner.login;
+        const githubUser = data.owner.login;
 
-      setRepoData({
-        name,
-        githubUser,
-        html_url,
-        description,
-        stargazers_count,
-        created_at,
-      });
+        setRepoData({
+          name,
+          githubUser,
+          html_url,
+          description,
+          stargazers_count,
+          created_at,
+        });
+      } catch (error) {
+        console.log(error);
+        navigation("/404");
+      }
     }
 
     getRepositorieData();

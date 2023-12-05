@@ -11,7 +11,7 @@ export const SearchUserForm = styled.form`
   align-items: center;
   gap: 1rem;
 
-  margin-top: -8rem;
+  margin-top: -11rem;
 
   & h1 {
     font-size: 3.2rem;
@@ -20,5 +20,11 @@ export const SearchUserForm = styled.form`
 
   & span {
     color: ${({ theme }) => theme["blue-300"]};
+  }
+
+  & p {
+    text-align: center;
+    font-size: 1.6rem;
+    color: ${({ theme }) => theme["gray-200"]};
   }
 `;
