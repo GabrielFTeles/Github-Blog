@@ -1,7 +1,6 @@
 import { api } from "../../libs/axios";
 import { ChangeEvent, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import debounce from "lodash.debounce";
 
 import { ProfileCard } from "./components/ProfileCard";
 import { PublicationCard } from "./components/PublicationCard";
@@ -26,26 +25,23 @@ export function Home() {
   const { username } = useParams();
 
   const [userRepos, setUserRepos] = useState<UserRepoType[]>([]);
+  const [filteredRepos, setFilteredRepos] = useState<UserRepoType[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [searchText, setSearchText] = useState("");
 
   function handleSearch(event: ChangeEvent<HTMLInputElement>) {
-    const debounceSearch = debounce(
-      () => setSearchText(event.target.value),
-      1000
+    const newFilteredRepos = userRepos.filter((repo) =>
+      repo.name.includes(event.target.value)
     );
 
-    debounceSearch();
+    setFilteredRepos(newFilteredRepos);
   }
 
   useEffect(() => {
     async function getUserRepos() {
       try {
-        const { data } = await api.get(
-          `/search/repositories?q=${searchText}+user:${username}&sort=created&order=asc`
-        );
+        const { data } = await api.get(`/users/${username}/repos?sort=created`);
 
-        const reposWithDescription = data.items.filter(
+        const reposWithDescription = data.filter(
           (repo: any) => repo.description
         );
 
@@ -68,6 +64,7 @@ export function Home() {
         });
 
         setUserRepos(repos);
+        setFilteredRepos(repos);
       } catch (error) {
         console.log(error);
       } finally {
@@ -76,7 +73,7 @@ export function Home() {
     }
 
     getUserRepos();
-  }, [username, searchText]);
+  }, [username]);
 
   if (isLoading) {
     return <InfinityLoader />;
@@ -99,7 +96,7 @@ export function Home() {
         />
 
         <PublicationsCardsList>
-          {userRepos.map((repo) => (
+          {filteredRepos.map((repo) => (
             <PublicationCard key={repo.name} data={repo} />
           ))}
         </PublicationsCardsList>
