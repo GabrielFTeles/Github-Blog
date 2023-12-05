@@ -1,111 +1,37 @@
-import { api } from "../../libs/axios";
-import { ChangeEvent, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { ChangeEvent, FormEvent, useState } from "react";
 
-import { ProfileCard } from "./components/ProfileCard";
-import { PublicationCard } from "./components/PublicationCard";
+import { Input } from "../../components/Input";
 
-import {
-  HomeContainer,
-  PublicationsCardsList,
-  PublicationsSection,
-  SectionHeader,
-} from "./styles";
-import { InfinityLoader } from "../../components/InfinityLoader";
-
-export interface UserRepoType {
-  name: string;
-  description: string;
-  html_url: string;
-  language: string;
-  created_at: string;
-  login: string;
-}
+import { HomeContainer, SearchUserForm } from "./styles";
 
 export function Home() {
-  const { username } = useParams();
+  const navigation = useNavigate();
 
-  const [userRepos, setUserRepos] = useState<UserRepoType[]>([]);
-  const [filteredRepos, setFilteredRepos] = useState<UserRepoType[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [githubUsername, setGithubUsername] = useState("");
 
-  function handleSearch(event: ChangeEvent<HTMLInputElement>) {
-    const newFilteredRepos = userRepos.filter(
-      (repo) =>
-        repo.name.includes(event.target.value) ||
-        repo.description.includes(event.target.value)
-    );
-
-    setFilteredRepos(newFilteredRepos);
+  function handleSearchInputChange(event: ChangeEvent<HTMLInputElement>) {
+    setGithubUsername(event.currentTarget.value);
   }
 
-  useEffect(() => {
-    async function getUserRepos() {
-      try {
-        const { data } = await api.get(`/users/${username}/repos?sort=created`);
-
-        const reposWithDescription = data.filter(
-          (repo: any) => repo.description
-        );
-
-        const repos = reposWithDescription.map((repo: any) => {
-          const {
-            name,
-            description,
-            html_url,
-            language,
-            created_at,
-            owner: { login },
-          } = repo;
-
-          return {
-            login,
-            name,
-            language,
-            description,
-            html_url,
-            created_at,
-          };
-        });
-
-        setUserRepos(repos);
-        setFilteredRepos(repos);
-      } catch (error) {
-        console.log(error);
-      } finally {
-        setIsLoading(false);
-      }
-    }
-
-    getUserRepos();
-  }, [username]);
-
-  if (isLoading) {
-    return <InfinityLoader />;
+  function handleSubmit(event: FormEvent) {
+    event.preventDefault();
+    navigation(`/users/${githubUsername}`);
   }
 
   return (
     <HomeContainer>
-      <ProfileCard />
+      <SearchUserForm onSubmit={handleSubmit}>
+        <h1>
+          Pesquise o <span>Github</span>
+        </h1>
 
-      <PublicationsSection>
-        <SectionHeader>
-          <h2>Publicações</h2>
-          <span>{userRepos.length} publicações</span>
-        </SectionHeader>
-
-        <input
+        <Input
           type="text"
-          placeholder="Buscar conteúdo"
-          onChange={handleSearch}
+          placeholder="Busque o usuário do Github"
+          onChange={handleSearchInputChange}
         />
-
-        <PublicationsCardsList>
-          {filteredRepos.map((repo) => (
-            <PublicationCard key={repo.name} data={repo} />
-          ))}
-        </PublicationsCardsList>
-      </PublicationsSection>
+      </SearchUserForm>
     </HomeContainer>
   );
 }
