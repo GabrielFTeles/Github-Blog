@@ -1,7 +1,7 @@
 # 📰 Github Blog
 
 <div> 
-    <img src="https://cdn.discordapp.com/attachments/955198865328439347/1182016317553909890/teste.gif" width="900px" />
+    <img src="https://media.discordapp.net/attachments/955198865328439347/1182018922220896347/Screenshot_2023-12-06_at_15-00-42_Github_Blog.png" width="900px" />
 </div>
 
 ## Sobre o Projeto
